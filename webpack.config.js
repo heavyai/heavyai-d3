@@ -10,7 +10,7 @@ const config = env => {
         d3ComboChart: bundleIndexPath
       },
 
-      devtool: "sourcemap",
+      devtool: "source-map",
 
       output: {
         path: path.resolve(__dirname, "dist"),
@@ -69,7 +69,7 @@ const config = env => {
         d3ComboChart: bundleIndexPath
       },
 
-      devtool: "eval",
+      devtool: "source-map",
 
       output: {
         path: path.resolve(__dirname, "dist"),
