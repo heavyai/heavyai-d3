@@ -18,6 +18,10 @@ import * as _Utils from "./charts/helpers/common"
 import Scale from "./charts/scale"
 require("./styles/d3-combo-chart.scss")
 
+// polyfills
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 export {
   Chart,
   Tooltip,
