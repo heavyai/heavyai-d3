@@ -11,7 +11,7 @@ module.exports = {
           ]
         },
         modules: false, // This is crucial for Webpack tree-shaking
-        useBuiltIns: "entry", // <--- ADDED: From your old .babelrc
+        useBuiltIns: "usage", // <--- ADDED: From your old .babelrc
         corejs: 3 // <--- IMPORTANT: Required when useBuiltIns is 'entry' or 'usage' in Babel 7
       }
     ]
