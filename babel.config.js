@@ -7,7 +7,7 @@ module.exports = {
           browsers: [
             // Your desired browser targets, matching your browserslist from package.json
             "last 2 versions",
-            "not ie 10"
+            "not dead"
           ]
         },
         modules: false, // This is crucial for Webpack tree-shaking

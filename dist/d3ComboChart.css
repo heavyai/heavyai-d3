@@ -14,15 +14,9 @@
   font-size: 11px; }
 
 .d3-combo-chart.d3-combo-chart-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch; }
+  align-items: stretch; }
   .d3-combo-chart.d3-combo-chart-container .svg-wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     overflow-y: hidden;
     overflow-x: hidden; }
@@ -96,15 +90,9 @@
     border-collapse: separate;
     border-spacing: 0 5px; }
   .d3-combo-chart .tooltip-group .tooltip-item, .d3-combo-chart .legend-group .tooltip-item {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center; }
+    justify-content: flex-start;
+    align-items: center; }
   .d3-combo-chart .tooltip-group .section.tooltip-label, .d3-combo-chart .tooltip-group .section.value, .d3-combo-chart .legend-group .section.tooltip-label, .d3-combo-chart .legend-group .section.value {
     padding-left: 5px;
     white-space: nowrap;
@@ -230,11 +218,9 @@
     cursor: pointer; }
   .d3-combo-chart .domain-input-group .hit-zone > div {
     opacity: 0;
-    -webkit-transition: opacity 0.2s ease-in-out;
     transition: opacity 0.2s ease-in-out; }
   .d3-combo-chart .domain-input-group .hit-zone:hover > div {
     opacity: 1;
-    -webkit-transition: opacity 0.2s ease-in-out;
     transition: opacity 0.2s ease-in-out; }
 
 .d3-combo-chart .brush-range-input-group {
@@ -254,13 +240,10 @@
     font-size: 13px;
     overflow: hidden; }
   .d3-combo-chart .label-group .axis-label.x {
-    -webkit-transform: translate(-50%);
-            transform: translate(-50%); }
+    transform: translate(-50%); }
   .d3-combo-chart .label-group .axis-label.y {
     left: 0;
-    -webkit-transform: translate(-50%) rotate(-90deg);
-            transform: translate(-50%) rotate(-90deg); }
+    transform: translate(-50%) rotate(-90deg); }
   .d3-combo-chart .label-group .axis-label.y2 {
-    -webkit-transform: translate(-50%) rotate(-90deg);
-            transform: translate(-50%) rotate(-90deg); }
+    transform: translate(-50%) rotate(-90deg); }
 

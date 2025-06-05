@@ -43,7 +43,7 @@
   "homepage": "https://github.com/mapd/mapd3",
   "browserslist": [
     "last 2 versions",
-    "not ie 10"
+    "not dead"
   ],
   "dependencies": {
     "base-64": "^0.1.0",
