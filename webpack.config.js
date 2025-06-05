@@ -32,7 +32,15 @@ const config = env => {
       // 3. Filename for prod/dev
       filename: isProduction ? "[name].min.js" : "[name].js",
       library: "[name]",
-      libraryTarget: "umd"
+      libraryTarget: "umd",
+      // Add these specific options to prevent eval() for module execution
+      // and ensure CSP compliance for webpack's internal logic.
+      devtoolModuleFilenameTemplate: 'webpack:///[resource-path]', // Or a more basic template
+      devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
+      // Crucial: Set this to 'window' or 'global' to avoid eval-based function wrappers
+      // (This sometimes works for this specific eval() problem in Webpack 4)
+      // Defaults to 'jsonp' which might use eval in some cases.
+      jsonpFunction: 'webpackJsonpd3ComboChart', // Use a unique name for your library
     },
 
     externals: {
