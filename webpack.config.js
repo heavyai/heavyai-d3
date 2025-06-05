@@ -1,46 +1,37 @@
 const webpack = require("webpack");
 const path = require("path");
-// const ExtractTextPlugin = require("extract-text-webpack-plugin"); // REMOVE: Replaced by MiniCssExtractPlugin
-const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // NEW: Import MiniCssExtractPlugin
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"); // NEW: For CSS minification
-const TerserJSPlugin = require("terser-webpack-plugin"); // NEW: For JS minification in Webpack 4+
-// const UglifyJsPlugin = require("uglifyjs-webpack-plugin"); // REMOVE: Replaced by Terser
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin"); // NEW: For CSS minification in Webpack 5
+const TerserPlugin = require("terser-webpack-plugin"); // NEW: TerserPlugin (no JS suffix for modern Webpack)
 
 const bundleIndexPath = path.resolve("./src/bundle.js");
 
 const config = env => {
-  // Webpack 4 introduces the 'mode' option
-  // It handles many optimizations automatically
-  const isProduction = !!env.production; // Ensure boolean
-  const isDevelopment = !!env.development; // Ensure boolean
+  const isProduction = !!env.production;
+  const isDevelopment = !!env.development;
 
-  // Common configuration for both production and development
-  const commonConfig = {
-    // 1. Mode: REQUIRED in Webpack 4
+  return {
     mode: isProduction ? 'production' : 'development',
 
     entry: {
       d3ComboChart: bundleIndexPath
     },
 
-    // 2. devtool: Production should generally use 'source-map' or false for CSP compliance
-    //    Development often uses faster options.
-    devtool: isProduction ? 'source-map' : 'cheap-module-eval-source-map', // 'source-map' for prod, faster for dev
+    // devtool: 'source-map' is generally CSP-compliant for production in Webpack 5.
+    // 'eval' variants should be avoided for CSP.
+    devtool: isProduction ? 'source-map' : 'cheap-module-source-map', // Use 'source-map' or 'false' for prod. 'cheap-module-source-map' for dev is common.
 
     output: {
       path: path.resolve(__dirname, "dist"),
-      // 3. Filename for prod/dev
       filename: isProduction ? "[name].min.js" : "[name].js",
       library: "[name]",
       libraryTarget: "umd",
-      // Add these specific options to prevent eval() for module execution
-      // and ensure CSP compliance for webpack's internal logic.
-      devtoolModuleFilenameTemplate: 'webpack:///[resource-path]', // Or a more basic template
-      devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]',
-      // Crucial: Set this to 'window' or 'global' to avoid eval-based function wrappers
-      // (This sometimes works for this specific eval() problem in Webpack 4)
-      // Defaults to 'jsonp' which might use eval in some cases.
-      jsonpFunction: 'webpackJsonpd3ComboChart', // Use a unique name for your library
+      // Webpack 5: automatically cleans the output directory
+      clean: true, // NEW: Automatically cleans the `dist` folder before build
+      // Webpack 5: chunkFilename and publicPath defaults are often good.
+      // jsonpFunction is replaced by chunkLoading and chunkFormat
+      // For UMD libraries, often not necessary to set chunkLoading explicitly,
+      // as it's typically tied to the libraryTarget.
     },
 
     externals: {
@@ -53,46 +44,67 @@ const config = env => {
           test: /\.js$/,
           exclude: /(node_modules|doc|dist)/,
           use: {
-            loader: "babel-loader" // Ensure babel.config.js or .babelrc is configured for Babel 7
+            loader: "babel-loader" // Ensure babel.config.js is correct for Babel 7
           }
         },
         {
           test: /\.(sass|scss)$/,
-          // 4. MiniCssExtractPlugin.loader replaces ExtractTextPlugin.extract
           use: [
-            MiniCssExtractPlugin.loader, // New loader for extracting CSS
+            MiniCssExtractPlugin.loader,
             "css-loader",
             "postcss-loader",
             "sass-loader"
           ]
-        }
+        },
+        // NEW: Webpack 5 Asset Modules (replace file-loader, url-loader, raw-loader)
+        // These handle images, fonts directly.
+        {
+          test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i, // Combined image and font extensions
+          type: 'asset/resource', // Automatically decide between inline and resource
+          generator: {
+            filename: 'assets/[name][ext][query]' // Output path for assets
+          },
+          parser: {
+            dataUrlCondition: {
+              maxSize: 8 * 1024 // 8kb (inline assets smaller than this)
+            }
+          }
+        },
       ]
     },
 
     plugins: [
-      new MiniCssExtractPlugin({ // New plugin for extracting CSS
+      new MiniCssExtractPlugin({
         filename: isProduction ? "[name].min.css" : "[name].css",
         chunkFilename: isProduction ? "[id].min.css" : "[id].css"
       }),
-      // 5. No need for webpack.optimize.UglifyJsPlugin() here anymore
-      //    Minification handled by optimization.minimizer
+      // Removed webpack.optimize.UglifyJsPlugin()
+      // Removed OptimizeCSSAssetsPlugin (replaced by CssMinimizerPlugin in optimization)
     ],
 
-    // 6. Optimization: New section in Webpack 4+
     optimization: {
+        minimize: isProduction, // Enable minification only in production
         minimizer: [
-            // For JS minification (replaces UglifyJsPlugin)
-            new TerserJSPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: isProduction // Only generate source map for minified code if needed
+            // For JS minification
+            new TerserPlugin({
+                parallel: true, // Enable multi-process parallel running
+                terserOptions: {
+                    compress: {
+                        // Your existing compress options:
+                        dead_code: true,
+                        warnings: false,
+                        comparisons: false
+                    },
+                    // Ensure sourceMap is configured for TerserPlugin directly
+                    // based on devtool setting. Webpack 5 defaults to reading devtool.
+                    sourceMap: isProduction // Only generate source map for minified code if needed
+                }
             }),
-            // For CSS minification (replaces part of ExtractTextPlugin functionality)
-            new OptimizeCSSAssetsPlugin({})
+            // For CSS minification
+            new CssMinimizerPlugin(), // NEW: Uses cssnano by default
         ],
-        // Default splitChunks behaviour is often good, but you can configure
-        // You had a 'vendor' cacheGroup, which is default behavior in Webpack 4 production mode
-        // For now, let's rely on Webpack 4's defaults for simplicity unless needed
+        // Default splitChunks behavior in Webpack 5 is improved and often sufficient.
+        // If you need custom vendor chunking, re-add:
         // splitChunks: {
         //     cacheGroups: {
         //         vendor: {
@@ -102,11 +114,33 @@ const config = env => {
         //         }
         //     }
         // }
+    },
+
+    // NEW: Webpack 5 fallback for Node.js core modules
+    // This is crucial if your dependencies still try to import Node.js built-in modules
+    // (like 'os', 'stream', 'path', 'buffer', 'util', 'assert', 'url', 'crypto', 'fs')
+    // We already did this for the main app, but it's good to have here too if this lib itself needs it.
+    resolve: {
+        fallback: {
+            "os": require.resolve("os-browserify/browser"),
+            // Add other polyfills here if other errors appear:
+            // "stream": require.resolve("stream-browserify"),
+            // "path": require.resolve("path-browserify"),
+            // "buffer": require.resolve("buffer/"),
+            // "util": require.resolve("util/"),
+            // "assert": require.resolve("assert/"),
+            // "url": require.resolve("url/"),
+            // "crypto": require.resolve("crypto-browserify"),
+            // "fs": false, // Set to false if you don't need 'fs' in the browser
+        },
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.geojson'], // Ensure all extensions are here
+        symlinks: false,
+        modules: [path.resolve(__dirname, "src"), "node_modules"],
+        alias: {
+            // Your existing aliases
+        }
     }
   };
-
-  // Return the common config
-  return commonConfig;
 };
 
 module.exports = config;
