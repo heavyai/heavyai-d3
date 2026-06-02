@@ -1,3 +1,6 @@
+// Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import {MIN_MARK_WIDTH, MAX_MARK_WIDTH} from "./constants"
 import {clamp} from "./common"
 

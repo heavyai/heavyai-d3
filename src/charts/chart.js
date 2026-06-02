@@ -1,3 +1,6 @@
+// Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import * as d3 from "./helpers/d3-service"
 
 import {colors} from "./helpers/colors"

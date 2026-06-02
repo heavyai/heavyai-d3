@@ -1,3 +1,6 @@
+// Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 export const underline = `<filter id="underline">
   <feOffset dx="0" dy="2" result="offsetblur"/>
   <feFlood flood-color="white" flood-opacity="1"/>
