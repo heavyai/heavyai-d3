@@ -6,10 +6,19 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const bundleIndexPath = path.resolve("./src/bundle.js");
 const TerserPlugin = require('terser-webpack-plugin');
+const autoprefixer = require("autoprefixer");
+const discardComments = require("postcss-discard-comments");
+
+const postcssPlugins = [autoprefixer, discardComments];
+
+const LICENSE_BANNER = `SPDX-FileCopyrightText: Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+SPDX-License-Identifier: Apache-2.0`;
 
 const config = env => {
   if (env.prod) {
     return {
+      mode: "production",
+
       entry: {
         d3ComboChart: bundleIndexPath
       },
@@ -44,9 +53,7 @@ const config = env => {
               {
                 loader: "postcss-loader",
                 options: {
-                  postcssOptions: {
-                    config: "postcss.config.js"
-                  }
+                  plugins: postcssPlugins
                 }
               },
               "sass-loader"
@@ -58,11 +65,17 @@ const config = env => {
         new MiniCssExtractPlugin({
           filename: "[name].css"
         }),
-        new TerserPlugin()
+        new TerserPlugin(),
+        new webpack.BannerPlugin({
+          banner: LICENSE_BANNER,
+          test: /\.css$/
+        })
       ]
     };
   } else if (env.dev) {
     return {
+      mode: "development",
+
       entry: {
         d3ComboChart: bundleIndexPath
       },
@@ -97,9 +110,7 @@ const config = env => {
               {
                 loader: "postcss-loader",
                 options: {
-                  postcssOptions: {
-                    config: "postcss.config.js"
-                  }
+                  plugins: postcssPlugins
                 }
               },
               "sass-loader"
@@ -110,6 +121,10 @@ const config = env => {
       plugins: [
         new MiniCssExtractPlugin({
           filename: "[name].css"
+        }),
+        new webpack.BannerPlugin({
+          banner: LICENSE_BANNER,
+          test: /\.css$/
         })
       ]
     };
