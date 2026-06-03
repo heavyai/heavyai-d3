@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import * as d3 from "./helpers/d3-service"
 import {override} from "./helpers/common"
 import {autoFormat, formatPercentage, multiFormat, getExtractFormatter} from "./helpers/formatters"

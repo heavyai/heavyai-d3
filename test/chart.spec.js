@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import {expect} from "chai"
 import Chart from "../src/charts/chart"
 import {baseConfig} from "./test-utils"
