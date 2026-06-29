@@ -6,6 +6,7 @@ const nodeExternals = require("webpack-node-externals")
 const bundleIndexPath = path.resolve("./src/bundle.js")
 
 module.exports = {
+  mode: "development",
   entry: {
     d3ComboChart: bundleIndexPath
   },
