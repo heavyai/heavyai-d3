@@ -21,7 +21,7 @@ d3ComboChart.Chart(document.querySelector('.chart'))
 ```
 
 ## Development
-Look in [/package.json](package.json) for the build scripts. It is available as an [npm](https://www.npmjs.com/package/@heavyai/d3-combo-chart) package.
+Look in [/package.json](package.json) for the build scripts. 
 
 If, for some reason, you get errors about `d3/build/d3.js` missing, try running `npm run clean` and `npm install`.
 
