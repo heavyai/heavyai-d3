@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mapd/mapd3"
+    "url": "https://github.com/heavyai/heavyai-d3"
   },
   "keywords": [
     "d3",
@@ -38,9 +38,9 @@
   "author": "HEAVY.AI",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/mapd/mapd3/issues"
+    "url": "https://github.com/heavyai/heavyai-d3/issues"
   },
-  "homepage": "https://github.com/mapd/mapd3",
+  "homepage": "https://github.com/heavyai/heavyai-d3",
   "browserslist": [
     "last 2 versions",
     "not ie 10"
