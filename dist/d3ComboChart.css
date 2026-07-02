@@ -22,6 +22,8 @@
 .d3-combo-chart div{
   font-size:11px;
 }
+.d3-combo-chart{
+}
 .d3-combo-chart.d3-combo-chart-container{
   display:-webkit-box;
   display:-ms-flexbox;
@@ -40,6 +42,8 @@
 .d3-combo-chart.d3-combo-chart-container svg.chart{
   position:relative;
 }
+.d3-combo-chart{
+}
 .d3-combo-chart .vertical-grid-line,
 .d3-combo-chart .horizontal-grid-line{
   fill:none;
@@ -54,6 +58,8 @@
   shape-rendering:crispEdges;
   stroke:#D2D6DF;
   stroke-width:1;
+}
+.d3-combo-chart{
 }
 .d3-combo-chart .axis-group .domain{
   fill:none;
@@ -72,6 +78,8 @@
 }
 .d3-combo-chart .axis-group .y-title, .d3-combo-chart .axis-group .x-title{
   font-size:0.8em;
+}
+.d3-combo-chart{
 }
 .d3-combo-chart .tooltip-group, .d3-combo-chart .legend-group{
   border:1px solid #ddd;
@@ -150,6 +158,8 @@
 .d3-combo-chart .legend-group .section.tooltip-label{
   font-weight:normal;
 }
+.d3-combo-chart{
+}
 .d3-combo-chart .d3-combo-chart-legend .legend-entry.is-faded .legend-entry-name,
 .d3-combo-chart .d3-combo-chart-legend .legend-entry.is-faded .legend-entry-value,
 .d3-combo-chart .d3-combo-chart-legend .legend-entry.is-faded .legend-circle{
@@ -163,9 +173,13 @@
 .d3-combo-chart .d3-combo-chart-legend .legend-entry.is-faded .legend-circle{
   opacity:0.2;
 }
+.d3-combo-chart{
+}
 .d3-combo-chart .bar .axis.x > path.domain,
 .d3-combo-chart .stackedBar .axis.x > path.domain{
   display:none;
+}
+.d3-combo-chart{
 }
 .d3-combo-chart .chart .masking-rectangle{
   fill:#ffffff;
@@ -190,6 +204,8 @@
 .d3-combo-chart .chart .bar{
   stroke-width:0.5;
 }
+.d3-combo-chart{
+}
 .d3-combo-chart .brush-chart .brush-area{
   fill:#EFF2F5;
 }
@@ -210,6 +226,8 @@
 }
 .d3-combo-chart .brush-group .handle{
   fill:#eee;
+}
+.d3-combo-chart{
 }
 .d3-combo-chart .binning-group{
   font-size:11px;
@@ -234,6 +252,8 @@
 .d3-combo-chart .binning-group .dimmed{
   font-weight:normal;
 }
+.d3-combo-chart{
+}
 .d3-combo-chart .hover-group .vertical-marker{
   stroke:#D2D6DF;
   stroke-width:1;
@@ -242,6 +262,8 @@
 .d3-combo-chart .hover-group .dot{
   stroke-width:0.5;
   stroke:#D2D6DF;
+}
+.d3-combo-chart{
 }
 .d3-combo-chart .domain-input-group{
   position:absolute;
@@ -272,12 +294,16 @@
   -webkit-transition:opacity 0.2s ease-in-out;
   transition:opacity 0.2s ease-in-out;
 }
+.d3-combo-chart{
+}
 .d3-combo-chart .brush-range-input-group{
   white-space:nowrap;
   color:#868686;
 }
 .d3-combo-chart .brush-range-input-group .brush-range-input, .d3-combo-chart .brush-range-input-group .separator{
   padding:0 2px;
+}
+.d3-combo-chart{
 }
 .d3-combo-chart .label-group{
   position:absolute;
