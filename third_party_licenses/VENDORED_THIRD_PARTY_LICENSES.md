@@ -19,8 +19,6 @@ Total components: **6**.
 
 ### Notes
 
-- `doc/assets/site.js`, `doc/assets/style.css`, `doc/assets/bass.css`, `doc/assets/bass-addons.css`, `doc/assets/github.css`, `doc/assets/anchor.js`, and `doc/assets/fonts/*` were copied verbatim from `node_modules/documentation/default_theme/assets/` (package `documentation@4.0.0-rc.1`) as part of the `docs:build` script (`documentation build`). They are theme assets bundled by that tool, not code authored in this repository.
 - `bass.css`, `bass-addons.css`, and `github.css` are themselves third-party components that `documentation` bundles unmodified from Basscss and highlight.js respectively; they retain their original upstream licenses rather than `documentation`'s own ISC license.
 - `fonts/LICENSE.txt`, checked in alongside the Source Code Pro font files, contains the full SIL Open Font License text and Adobe's reserved-font-name notice.
 - AnchorJS's vendored snapshot (tag `1.2.1`) predates the addition of a standalone `LICENSE` file to that repo; at that tag the only license grant is the `Copyright (c) 2015 Bryan Braun; Licensed MIT` notice in `anchor.js`'s own header comment. The `main`-branch `LICENSE` link above is used because no version-pinned license file exists, and the terms have remained MIT throughout.
-- No SPDX/NVIDIA copyright headers should be added to any file in this list; NVIDIA does not hold copyright in this code.
